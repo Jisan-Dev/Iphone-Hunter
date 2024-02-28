@@ -1,13 +1,18 @@
 const productsContainer = document.getElementById('products__container');
+const searchInp = document.getElementById('searchInp');
 
-const loadPhones = async () => {
-  const res = await fetch('https://openapi.programming-hero.com/api/phones?search=iphone');
+const loadPhones = async (searchValue) => {
+  const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`);
   const data = await res.json();
   const phones = data.data;
   displayPhone(phones);
 };
 
 const displayPhone = (phones) => {
+  // make container empty every time new search hit
+  productsContainer.innerHTML = '';
+
+  // loop through each phone object and insert html
   phones.forEach((phone) => {
     productsContainer.innerHTML += `
     <div
@@ -28,4 +33,10 @@ const displayPhone = (phones) => {
   });
 };
 
-loadPhones();
+const handleSearch = () => {
+  const searchValue = searchInp.value;
+  loadPhones(searchValue);
+  searchInp.value = '';
+};
+
+// loadPhones();

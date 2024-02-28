@@ -57,10 +57,13 @@
             class="input input-bordered flex items-center gap-2 py-7 pr-0 bg-stone-950 bg-opacity-5 overflow-hidden">
             <img src="./assets/images/searchIcon.png" alt="" />
             <input
+              id="searchInp"
               type="text"
-              class="grow w-[732px] placeholder:text-neutral-500 placeholder:font-normal"
+              class="grow w-[732px] bg-transparent placeholder:text-neutral-500 placeholder:font-normal"
               placeholder="Search your phone" />
-            <button class="bg-blue-600 rounded-lg py-4 px-6 text-white text-xl font-semibold">
+            <button
+              onclick="handleSearch()"
+              class="bg-blue-600 rounded-lg py-4 px-6 text-white text-xl font-semibold">
               Search
             </button>
           </label>
