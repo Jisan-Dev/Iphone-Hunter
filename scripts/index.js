@@ -1,5 +1,6 @@
 const productsContainer = document.getElementById('products__container');
 const searchInp = document.getElementById('searchInp');
+const showAllBtn = document.getElementById('products__btn-show-all');
 
 const loadPhones = async (searchValue) => {
   const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`);
@@ -12,6 +13,14 @@ const displayPhone = (phones) => {
   // make container empty every time new search hit
   productsContainer.innerHTML = '';
 
+  // display 'show all' btn if products are more than 12 in quantity
+  if (phones.length > 12) {
+    showAllBtn.classList.remove('hidden');
+  } else {
+    showAllBtn.classList.add('hidden');
+  }
+
+  phones = phones.slice(0, 12);
   // loop through each phone object and insert html
   phones.forEach((phone) => {
     productsContainer.innerHTML += `
