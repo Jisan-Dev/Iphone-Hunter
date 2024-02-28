@@ -21,6 +21,7 @@ const displayPhone = (phones) => {
   }
 
   phones = phones.slice(0, 12);
+  handleLoadingSpinner(false);
   // loop through each phone object and insert html
   phones.forEach((phone) => {
     productsContainer.innerHTML += `
@@ -43,9 +44,19 @@ const displayPhone = (phones) => {
 };
 
 const handleSearch = () => {
+  handleLoadingSpinner(true);
   const searchValue = searchInp.value;
   loadPhones(searchValue);
   searchInp.value = '';
+};
+
+const handleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById('loadingSpinner');
+  if (isLoading) {
+    loadingSpinner.classList.remove('hidden');
+  } else {
+    loadingSpinner.classList.add('hidden');
+  }
 };
 
 // loadPhones();

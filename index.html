@@ -61,6 +61,7 @@
               id="searchInp"
               type="text"
               class="grow w-[732px] bg-transparent placeholder:text-neutral-500 placeholder:font-normal"
+              autocomplete="off"
               placeholder="Search your phone" />
             <button
               onclick="handleSearch()"
@@ -70,6 +71,10 @@
           </label>
         </div>
 
+        <div class="flex items-center justify-center mt-6">
+          <span id="loadingSpinner" class="loading loading-spinner loading-lg text-center hidden">
+          </span>
+        </div>
         <div id="products__container" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         <div class="flex flex-col items-center justify-center mt-8">
           <button
