@@ -95,8 +95,10 @@ const showPhoneDetails = (phone) => {
   <p class="mt-2 "><span class="font-extrabold">Slug:</span> ${phone?.slug}</p>
   <p class="mt-2 "><span class="font-extrabold">Release data:</span> ${phone?.releaseDate}</p>
   <p class="mt-2 "><span class="font-extrabold">Brand:</span> ${phone?.brand}</p>
-  <p class="mt-2 "><span class="font-extrabold">GPS:</span> ${phone?.others?.GPS ?? 'TBD'}</p>
-  `;
+  <p class="mt-2 "><span class="font-extrabold">GPS:</span> ${phone?.others?.GPS ?? 'Not available'}</p>
+  <p class="mt-2 "><span class="font-extrabold">Sensors:</span> ${phone?.mainFeatures?.sensors.join(
+    ', '
+  )}</p>`;
 
   show_details_modal.showModal();
 };
