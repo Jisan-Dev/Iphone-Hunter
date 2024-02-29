@@ -2,7 +2,7 @@ const productsContainer = document.getElementById('products__container');
 const searchInp = document.getElementById('searchInp');
 const showAllBtn = document.getElementById('products__btn-show-all');
 
-const loadPhones = async (searchValue, isShowAll) => {
+const loadPhones = async (searchValue = '13', isShowAll) => {
   const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchValue}`);
   const data = await res.json();
   const phones = data.data;
@@ -20,7 +20,6 @@ const displayPhone = (phones, isShowAll) => {
     showAllBtn.classList.add('hidden');
   }
 
-  console.log(isShowAll);
   // limiting to only show first 12 results
   if (!isShowAll) {
     phones = phones.slice(0, 12);
@@ -30,7 +29,7 @@ const displayPhone = (phones, isShowAll) => {
   phones.forEach((phone) => {
     productsContainer.innerHTML += `
     <div
-      class="flex flex-col items-center justify-center rounded-lg border border-['#CFCFCF'] px-9 py-6">
+      class="flex flex-col items-center justify-center rounded-lg border border-['#CFCFCF'] px-9 py-6 shadow-lg">
       <div class="w-full h-[300px] flex items-center justify-center bg-blue-600 bg-opacity-5 rounded-lg mb-6">
         <img src=${phone.image} class="" alt="" />
       </div>
@@ -39,7 +38,7 @@ const displayPhone = (phones, isShowAll) => {
         There are many variations of passages of available, but the majority have suffered
       </p>
       <p class="text-neutral-700 text-[25px] font-bold mb-4">$999</p>
-      <button class="bg-blue-600 rounded-lg py-2 px-6 text-white text-xl font-semibold">
+      <button onclick="showDetailHandler('${phone.slug}')" class="bg-blue-600 rounded-lg py-2 px-6 text-white text-xl font-semibold">
         Show Details
       </button>
     </div>
@@ -71,4 +70,35 @@ const showAllHandler = () => {
   handleSearch(true);
 };
 
-// loadPhones();
+const showDetailHandler = async (id) => {
+  console.log('clicked', id);
+  const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+  const data = await res.json();
+  const phone = data.data;
+
+  showPhoneDetails(phone);
+};
+
+const showPhoneDetails = (phone) => {
+  // console.log(phone);
+  document.getElementById('show_details_modal_phone-details').innerHTML = `
+  <div class="w-full h-[300px] flex items-center justify-center bg-blue-600 bg-opacity-5 rounded-lg mb-6">
+    <img src='${phone.image}'/>
+  </div>
+  <h3 class="font-bold text-3xl mb-4">${phone.name}</h3>
+  <p class="mt-2 "><span class="font-extrabold">Storage:</span> ${phone?.mainFeatures?.storage}</p>
+  <p class="mt-2 "><span class="font-extrabold">Display Size:</span> ${
+    phone?.mainFeatures?.displaySize
+  }</p>
+  <p class="mt-2 "><span class="font-extrabold">Chipset:</span> ${phone?.mainFeatures?.chipSet}</p>
+  <p class="mt-2 "><span class="font-extrabold">Memory:</span> ${phone?.mainFeatures?.memory}</p>
+  <p class="mt-2 "><span class="font-extrabold">Slug:</span> ${phone?.slug}</p>
+  <p class="mt-2 "><span class="font-extrabold">Release data:</span> ${phone?.releaseDate}</p>
+  <p class="mt-2 "><span class="font-extrabold">Brand:</span> ${phone?.brand}</p>
+  <p class="mt-2 "><span class="font-extrabold">GPS:</span> ${phone?.others?.GPS ?? 'TBD'}</p>
+  `;
+
+  show_details_modal.showModal();
+};
+
+loadPhones();
