@@ -76,12 +76,15 @@
           </span>
         </div>
         <div id="products__container" class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"></div>
-        <div class="flex flex-col items-center justify-center mt-8">
+        <div class="flex items-center justify-center mt-8 mb-8">
           <button
+            onclick="showAllHandler()"
             id="products__btn-show-all"
             class="bg-transparent border border-blue-600 rounded-lg py-3 px-8 text-blue-600 text-xl font-bold hidden">
             Show All
           </button>
+          <span id="loadingSpinner" class="loading loading-spinner loading-lg text-center ml-4 hidden">
+          </span>
         </div>
       </section>
     </main>
